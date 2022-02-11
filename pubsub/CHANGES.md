@@ -1,5 +1,12 @@
 # Changes
 
+## [1.19.0](https://github.com/googleapis/google-cloud-go/compare/pubsub/v1.18.0...pubsub/v1.19.0) (2022-02-11)
+
+
+### Features
+
+* **pubsub:** add better version metadata to calls ([d1ad921](https://github.com/googleapis/google-cloud-go/commit/d1ad921d0322e7ce728ca9d255a3cf0437d26add))
+
 ## [1.18.0](https://www.github.com/googleapis/google-cloud-go/compare/pubsub/v1.17.1...pubsub/v1.18.0) (2022-02-08)
 
 
