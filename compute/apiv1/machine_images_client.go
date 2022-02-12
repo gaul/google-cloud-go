@@ -38,111 +38,104 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-var newSnapshotsClientHook clientHook
+var newMachineImagesClientHook clientHook
 
-// SnapshotsCallOptions contains the retry settings for each method of SnapshotsClient.
-type SnapshotsCallOptions struct {
+// MachineImagesCallOptions contains the retry settings for each method of MachineImagesClient.
+type MachineImagesCallOptions struct {
 	Delete             []gax.CallOption
 	Get                []gax.CallOption
 	GetIamPolicy       []gax.CallOption
 	Insert             []gax.CallOption
 	List               []gax.CallOption
 	SetIamPolicy       []gax.CallOption
-	SetLabels          []gax.CallOption
 	TestIamPermissions []gax.CallOption
 }
 
-// internalSnapshotsClient is an interface that defines the methods availaible from Google Compute Engine API.
-type internalSnapshotsClient interface {
+// internalMachineImagesClient is an interface that defines the methods availaible from Google Compute Engine API.
+type internalMachineImagesClient interface {
 	Close() error
 	setGoogleClientInfo(...string)
 	Connection() *grpc.ClientConn
-	Delete(context.Context, *computepb.DeleteSnapshotRequest, ...gax.CallOption) (*Operation, error)
-	Get(context.Context, *computepb.GetSnapshotRequest, ...gax.CallOption) (*computepb.Snapshot, error)
-	GetIamPolicy(context.Context, *computepb.GetIamPolicySnapshotRequest, ...gax.CallOption) (*computepb.Policy, error)
-	Insert(context.Context, *computepb.InsertSnapshotRequest, ...gax.CallOption) (*Operation, error)
-	List(context.Context, *computepb.ListSnapshotsRequest, ...gax.CallOption) *SnapshotIterator
-	SetIamPolicy(context.Context, *computepb.SetIamPolicySnapshotRequest, ...gax.CallOption) (*computepb.Policy, error)
-	SetLabels(context.Context, *computepb.SetLabelsSnapshotRequest, ...gax.CallOption) (*Operation, error)
-	TestIamPermissions(context.Context, *computepb.TestIamPermissionsSnapshotRequest, ...gax.CallOption) (*computepb.TestPermissionsResponse, error)
+	Delete(context.Context, *computepb.DeleteMachineImageRequest, ...gax.CallOption) (*Operation, error)
+	Get(context.Context, *computepb.GetMachineImageRequest, ...gax.CallOption) (*computepb.MachineImage, error)
+	GetIamPolicy(context.Context, *computepb.GetIamPolicyMachineImageRequest, ...gax.CallOption) (*computepb.Policy, error)
+	Insert(context.Context, *computepb.InsertMachineImageRequest, ...gax.CallOption) (*Operation, error)
+	List(context.Context, *computepb.ListMachineImagesRequest, ...gax.CallOption) *MachineImageIterator
+	SetIamPolicy(context.Context, *computepb.SetIamPolicyMachineImageRequest, ...gax.CallOption) (*computepb.Policy, error)
+	TestIamPermissions(context.Context, *computepb.TestIamPermissionsMachineImageRequest, ...gax.CallOption) (*computepb.TestPermissionsResponse, error)
 }
 
-// SnapshotsClient is a client for interacting with Google Compute Engine API.
+// MachineImagesClient is a client for interacting with Google Compute Engine API.
 // Methods, except Close, may be called concurrently. However, fields must not be modified concurrently with method calls.
 //
-// The Snapshots API.
-type SnapshotsClient struct {
+// The MachineImages API.
+type MachineImagesClient struct {
 	// The internal transport-dependent client.
-	internalClient internalSnapshotsClient
+	internalClient internalMachineImagesClient
 
 	// The call options for this service.
-	CallOptions *SnapshotsCallOptions
+	CallOptions *MachineImagesCallOptions
 }
 
 // Wrapper methods routed to the internal client.
 
 // Close closes the connection to the API service. The user should invoke this when
 // the client is no longer required.
-func (c *SnapshotsClient) Close() error {
+func (c *MachineImagesClient) Close() error {
 	return c.internalClient.Close()
 }
 
 // setGoogleClientInfo sets the name and version of the application in
 // the `x-goog-api-client` header passed on each request. Intended for
 // use by Google-written clients.
-func (c *SnapshotsClient) setGoogleClientInfo(keyval ...string) {
+func (c *MachineImagesClient) setGoogleClientInfo(keyval ...string) {
 	c.internalClient.setGoogleClientInfo(keyval...)
 }
 
 // Connection returns a connection to the API service.
 //
 // Deprecated.
-func (c *SnapshotsClient) Connection() *grpc.ClientConn {
+func (c *MachineImagesClient) Connection() *grpc.ClientConn {
 	return c.internalClient.Connection()
 }
 
-// Delete deletes the specified Snapshot resource. Keep in mind that deleting a single snapshot might not necessarily delete all the data on that snapshot. If any data on the snapshot that is marked for deletion is needed for subsequent snapshots, the data will be moved to the next corresponding snapshot. For more information, see Deleting snapshots.
-func (c *SnapshotsClient) Delete(ctx context.Context, req *computepb.DeleteSnapshotRequest, opts ...gax.CallOption) (*Operation, error) {
+// Delete deletes the specified machine image. Deleting a machine image is permanent and cannot be undone.
+func (c *MachineImagesClient) Delete(ctx context.Context, req *computepb.DeleteMachineImageRequest, opts ...gax.CallOption) (*Operation, error) {
 	return c.internalClient.Delete(ctx, req, opts...)
 }
 
-// Get returns the specified Snapshot resource. Gets a list of available snapshots by making a list() request.
-func (c *SnapshotsClient) Get(ctx context.Context, req *computepb.GetSnapshotRequest, opts ...gax.CallOption) (*computepb.Snapshot, error) {
+// Get returns the specified machine image. Gets a list of available machine images by making a list() request.
+func (c *MachineImagesClient) Get(ctx context.Context, req *computepb.GetMachineImageRequest, opts ...gax.CallOption) (*computepb.MachineImage, error) {
 	return c.internalClient.Get(ctx, req, opts...)
 }
 
 // GetIamPolicy gets the access control policy for a resource. May be empty if no such policy or resource exists.
-func (c *SnapshotsClient) GetIamPolicy(ctx context.Context, req *computepb.GetIamPolicySnapshotRequest, opts ...gax.CallOption) (*computepb.Policy, error) {
+func (c *MachineImagesClient) GetIamPolicy(ctx context.Context, req *computepb.GetIamPolicyMachineImageRequest, opts ...gax.CallOption) (*computepb.Policy, error) {
 	return c.internalClient.GetIamPolicy(ctx, req, opts...)
 }
 
-// Insert creates a snapshot in the specified project using the data included in the request. For regular snapshot creation, consider using this method instead of disks.createSnapshot, as this method supports more features, such as creating snapshots in a project different from the source disk project.
-func (c *SnapshotsClient) Insert(ctx context.Context, req *computepb.InsertSnapshotRequest, opts ...gax.CallOption) (*Operation, error) {
+// Insert creates a machine image in the specified project using the data that is included in the request. If you are creating a new machine image to update an existing instance, your new machine image should use the same network or, if applicable, the same subnetwork as the original instance.
+func (c *MachineImagesClient) Insert(ctx context.Context, req *computepb.InsertMachineImageRequest, opts ...gax.CallOption) (*Operation, error) {
 	return c.internalClient.Insert(ctx, req, opts...)
 }
 
-// List retrieves the list of Snapshot resources contained within the specified project.
-func (c *SnapshotsClient) List(ctx context.Context, req *computepb.ListSnapshotsRequest, opts ...gax.CallOption) *SnapshotIterator {
+// List retrieves a list of machine images that are contained within the specified project.
+func (c *MachineImagesClient) List(ctx context.Context, req *computepb.ListMachineImagesRequest, opts ...gax.CallOption) *MachineImageIterator {
 	return c.internalClient.List(ctx, req, opts...)
 }
 
 // SetIamPolicy sets the access control policy on the specified resource. Replaces any existing policy.
-func (c *SnapshotsClient) SetIamPolicy(ctx context.Context, req *computepb.SetIamPolicySnapshotRequest, opts ...gax.CallOption) (*computepb.Policy, error) {
+func (c *MachineImagesClient) SetIamPolicy(ctx context.Context, req *computepb.SetIamPolicyMachineImageRequest, opts ...gax.CallOption) (*computepb.Policy, error) {
 	return c.internalClient.SetIamPolicy(ctx, req, opts...)
 }
 
-// SetLabels sets the labels on a snapshot. To learn more about labels, read the Labeling Resources documentation.
-func (c *SnapshotsClient) SetLabels(ctx context.Context, req *computepb.SetLabelsSnapshotRequest, opts ...gax.CallOption) (*Operation, error) {
-	return c.internalClient.SetLabels(ctx, req, opts...)
-}
-
 // TestIamPermissions returns permissions that a caller has on the specified resource.
-func (c *SnapshotsClient) TestIamPermissions(ctx context.Context, req *computepb.TestIamPermissionsSnapshotRequest, opts ...gax.CallOption) (*computepb.TestPermissionsResponse, error) {
+func (c *MachineImagesClient) TestIamPermissions(ctx context.Context, req *computepb.TestIamPermissionsMachineImageRequest, opts ...gax.CallOption) (*computepb.TestPermissionsResponse, error) {
 	return c.internalClient.TestIamPermissions(ctx, req, opts...)
 }
 
 // Methods, except Close, may be called concurrently. However, fields must not be modified concurrently with method calls.
-type snapshotsRESTClient struct {
+type machineImagesRESTClient struct {
 	// The http endpoint to connect to.
 	endpoint string
 
@@ -156,17 +149,17 @@ type snapshotsRESTClient struct {
 	xGoogMetadata metadata.MD
 }
 
-// NewSnapshotsRESTClient creates a new snapshots rest client.
+// NewMachineImagesRESTClient creates a new machine images rest client.
 //
-// The Snapshots API.
-func NewSnapshotsRESTClient(ctx context.Context, opts ...option.ClientOption) (*SnapshotsClient, error) {
-	clientOpts := append(defaultSnapshotsRESTClientOptions(), opts...)
+// The MachineImages API.
+func NewMachineImagesRESTClient(ctx context.Context, opts ...option.ClientOption) (*MachineImagesClient, error) {
+	clientOpts := append(defaultMachineImagesRESTClientOptions(), opts...)
 	httpClient, endpoint, err := httptransport.NewClient(ctx, clientOpts...)
 	if err != nil {
 		return nil, err
 	}
 
-	c := &snapshotsRESTClient{
+	c := &machineImagesRESTClient{
 		endpoint:   endpoint,
 		httpClient: httpClient,
 	}
@@ -182,10 +175,10 @@ func NewSnapshotsRESTClient(ctx context.Context, opts ...option.ClientOption) (*
 	}
 	c.operationClient = opC
 
-	return &SnapshotsClient{internalClient: c, CallOptions: &SnapshotsCallOptions{}}, nil
+	return &MachineImagesClient{internalClient: c, CallOptions: &MachineImagesCallOptions{}}, nil
 }
 
-func defaultSnapshotsRESTClientOptions() []option.ClientOption {
+func defaultMachineImagesRESTClientOptions() []option.ClientOption {
 	return []option.ClientOption{
 		internaloption.WithDefaultEndpoint("https://compute.googleapis.com"),
 		internaloption.WithDefaultMTLSEndpoint("https://compute.mtls.googleapis.com"),
@@ -197,7 +190,7 @@ func defaultSnapshotsRESTClientOptions() []option.ClientOption {
 // setGoogleClientInfo sets the name and version of the application in
 // the `x-goog-api-client` header passed on each request. Intended for
 // use by Google-written clients.
-func (c *snapshotsRESTClient) setGoogleClientInfo(keyval ...string) {
+func (c *machineImagesRESTClient) setGoogleClientInfo(keyval ...string) {
 	kv := append([]string{"gl-go", versionGo()}, keyval...)
 	kv = append(kv, "gapic", versionClient, "gax", gax.Version, "rest", "UNKNOWN")
 	c.xGoogMetadata = metadata.Pairs("x-goog-api-client", gax.XGoogHeader(kv...))
@@ -205,7 +198,7 @@ func (c *snapshotsRESTClient) setGoogleClientInfo(keyval ...string) {
 
 // Close closes the connection to the API service. The user should invoke this when
 // the client is no longer required.
-func (c *snapshotsRESTClient) Close() error {
+func (c *machineImagesRESTClient) Close() error {
 	// Replace httpClient with nil to force cleanup.
 	c.httpClient = nil
 	if err := c.operationClient.Close(); err != nil {
@@ -217,14 +210,14 @@ func (c *snapshotsRESTClient) Close() error {
 // Connection returns a connection to the API service.
 //
 // Deprecated.
-func (c *snapshotsRESTClient) Connection() *grpc.ClientConn {
+func (c *machineImagesRESTClient) Connection() *grpc.ClientConn {
 	return nil
 }
 
-// Delete deletes the specified Snapshot resource. Keep in mind that deleting a single snapshot might not necessarily delete all the data on that snapshot. If any data on the snapshot that is marked for deletion is needed for subsequent snapshots, the data will be moved to the next corresponding snapshot. For more information, see Deleting snapshots.
-func (c *snapshotsRESTClient) Delete(ctx context.Context, req *computepb.DeleteSnapshotRequest, opts ...gax.CallOption) (*Operation, error) {
+// Delete deletes the specified machine image. Deleting a machine image is permanent and cannot be undone.
+func (c *machineImagesRESTClient) Delete(ctx context.Context, req *computepb.DeleteMachineImageRequest, opts ...gax.CallOption) (*Operation, error) {
 	baseUrl, _ := url.Parse(c.endpoint)
-	baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/snapshots/%v", req.GetProject(), req.GetSnapshot())
+	baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/machineImages/%v", req.GetProject(), req.GetMachineImage())
 
 	params := url.Values{}
 	if req != nil && req.RequestId != nil {
@@ -279,15 +272,15 @@ func (c *snapshotsRESTClient) Delete(ctx context.Context, req *computepb.DeleteS
 	return op, nil
 }
 
-// Get returns the specified Snapshot resource. Gets a list of available snapshots by making a list() request.
-func (c *snapshotsRESTClient) Get(ctx context.Context, req *computepb.GetSnapshotRequest, opts ...gax.CallOption) (*computepb.Snapshot, error) {
+// Get returns the specified machine image. Gets a list of available machine images by making a list() request.
+func (c *machineImagesRESTClient) Get(ctx context.Context, req *computepb.GetMachineImageRequest, opts ...gax.CallOption) (*computepb.MachineImage, error) {
 	baseUrl, _ := url.Parse(c.endpoint)
-	baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/snapshots/%v", req.GetProject(), req.GetSnapshot())
+	baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/machineImages/%v", req.GetProject(), req.GetMachineImage())
 
 	// Build HTTP headers from client and context metadata.
 	headers := buildHeaders(ctx, c.xGoogMetadata, metadata.Pairs("Content-Type", "application/json"))
 	unm := protojson.UnmarshalOptions{AllowPartial: true, DiscardUnknown: true}
-	resp := &computepb.Snapshot{}
+	resp := &computepb.MachineImage{}
 	e := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
 		httpReq, err := http.NewRequest("GET", baseUrl.String(), nil)
 		if err != nil {
@@ -324,9 +317,9 @@ func (c *snapshotsRESTClient) Get(ctx context.Context, req *computepb.GetSnapsho
 }
 
 // GetIamPolicy gets the access control policy for a resource. May be empty if no such policy or resource exists.
-func (c *snapshotsRESTClient) GetIamPolicy(ctx context.Context, req *computepb.GetIamPolicySnapshotRequest, opts ...gax.CallOption) (*computepb.Policy, error) {
+func (c *machineImagesRESTClient) GetIamPolicy(ctx context.Context, req *computepb.GetIamPolicyMachineImageRequest, opts ...gax.CallOption) (*computepb.Policy, error) {
 	baseUrl, _ := url.Parse(c.endpoint)
-	baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/snapshots/%v/getIamPolicy", req.GetProject(), req.GetResource())
+	baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/machineImages/%v/getIamPolicy", req.GetProject(), req.GetResource())
 
 	params := url.Values{}
 	if req != nil && req.OptionsRequestedPolicyVersion != nil {
@@ -374,21 +367,24 @@ func (c *snapshotsRESTClient) GetIamPolicy(ctx context.Context, req *computepb.G
 	return resp, nil
 }
 
-// Insert creates a snapshot in the specified project using the data included in the request. For regular snapshot creation, consider using this method instead of disks.createSnapshot, as this method supports more features, such as creating snapshots in a project different from the source disk project.
-func (c *snapshotsRESTClient) Insert(ctx context.Context, req *computepb.InsertSnapshotRequest, opts ...gax.CallOption) (*Operation, error) {
+// Insert creates a machine image in the specified project using the data that is included in the request. If you are creating a new machine image to update an existing instance, your new machine image should use the same network or, if applicable, the same subnetwork as the original instance.
+func (c *machineImagesRESTClient) Insert(ctx context.Context, req *computepb.InsertMachineImageRequest, opts ...gax.CallOption) (*Operation, error) {
 	m := protojson.MarshalOptions{AllowPartial: true}
-	body := req.GetSnapshotResource()
+	body := req.GetMachineImageResource()
 	jsonReq, err := m.Marshal(body)
 	if err != nil {
 		return nil, err
 	}
 
 	baseUrl, _ := url.Parse(c.endpoint)
-	baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/snapshots", req.GetProject())
+	baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/machineImages", req.GetProject())
 
 	params := url.Values{}
 	if req != nil && req.RequestId != nil {
 		params.Add("requestId", fmt.Sprintf("%v", req.GetRequestId()))
+	}
+	if req != nil && req.SourceInstance != nil {
+		params.Add("sourceInstance", fmt.Sprintf("%v", req.GetSourceInstance()))
 	}
 
 	baseUrl.RawQuery = params.Encode()
@@ -439,13 +435,13 @@ func (c *snapshotsRESTClient) Insert(ctx context.Context, req *computepb.InsertS
 	return op, nil
 }
 
-// List retrieves the list of Snapshot resources contained within the specified project.
-func (c *snapshotsRESTClient) List(ctx context.Context, req *computepb.ListSnapshotsRequest, opts ...gax.CallOption) *SnapshotIterator {
-	it := &SnapshotIterator{}
-	req = proto.Clone(req).(*computepb.ListSnapshotsRequest)
+// List retrieves a list of machine images that are contained within the specified project.
+func (c *machineImagesRESTClient) List(ctx context.Context, req *computepb.ListMachineImagesRequest, opts ...gax.CallOption) *MachineImageIterator {
+	it := &MachineImageIterator{}
+	req = proto.Clone(req).(*computepb.ListMachineImagesRequest)
 	unm := protojson.UnmarshalOptions{AllowPartial: true, DiscardUnknown: true}
-	it.InternalFetch = func(pageSize int, pageToken string) ([]*computepb.Snapshot, string, error) {
-		resp := &computepb.SnapshotList{}
+	it.InternalFetch = func(pageSize int, pageToken string) ([]*computepb.MachineImage, string, error) {
+		resp := &computepb.MachineImageList{}
 		if pageToken != "" {
 			req.PageToken = proto.String(pageToken)
 		}
@@ -455,7 +451,7 @@ func (c *snapshotsRESTClient) List(ctx context.Context, req *computepb.ListSnaps
 			req.MaxResults = proto.Uint32(uint32(pageSize))
 		}
 		baseUrl, _ := url.Parse(c.endpoint)
-		baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/snapshots", req.GetProject())
+		baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/machineImages", req.GetProject())
 
 		params := url.Values{}
 		if req != nil && req.Filter != nil {
@@ -530,7 +526,7 @@ func (c *snapshotsRESTClient) List(ctx context.Context, req *computepb.ListSnaps
 }
 
 // SetIamPolicy sets the access control policy on the specified resource. Replaces any existing policy.
-func (c *snapshotsRESTClient) SetIamPolicy(ctx context.Context, req *computepb.SetIamPolicySnapshotRequest, opts ...gax.CallOption) (*computepb.Policy, error) {
+func (c *machineImagesRESTClient) SetIamPolicy(ctx context.Context, req *computepb.SetIamPolicyMachineImageRequest, opts ...gax.CallOption) (*computepb.Policy, error) {
 	m := protojson.MarshalOptions{AllowPartial: true}
 	body := req.GetGlobalSetPolicyRequestResource()
 	jsonReq, err := m.Marshal(body)
@@ -539,7 +535,7 @@ func (c *snapshotsRESTClient) SetIamPolicy(ctx context.Context, req *computepb.S
 	}
 
 	baseUrl, _ := url.Parse(c.endpoint)
-	baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/snapshots/%v/setIamPolicy", req.GetProject(), req.GetResource())
+	baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/machineImages/%v/setIamPolicy", req.GetProject(), req.GetResource())
 
 	// Build HTTP headers from client and context metadata.
 	headers := buildHeaders(ctx, c.xGoogMetadata, metadata.Pairs("Content-Type", "application/json"))
@@ -580,66 +576,8 @@ func (c *snapshotsRESTClient) SetIamPolicy(ctx context.Context, req *computepb.S
 	return resp, nil
 }
 
-// SetLabels sets the labels on a snapshot. To learn more about labels, read the Labeling Resources documentation.
-func (c *snapshotsRESTClient) SetLabels(ctx context.Context, req *computepb.SetLabelsSnapshotRequest, opts ...gax.CallOption) (*Operation, error) {
-	m := protojson.MarshalOptions{AllowPartial: true}
-	body := req.GetGlobalSetLabelsRequestResource()
-	jsonReq, err := m.Marshal(body)
-	if err != nil {
-		return nil, err
-	}
-
-	baseUrl, _ := url.Parse(c.endpoint)
-	baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/snapshots/%v/setLabels", req.GetProject(), req.GetResource())
-
-	// Build HTTP headers from client and context metadata.
-	headers := buildHeaders(ctx, c.xGoogMetadata, metadata.Pairs("Content-Type", "application/json"))
-	unm := protojson.UnmarshalOptions{AllowPartial: true, DiscardUnknown: true}
-	resp := &computepb.Operation{}
-	e := gax.Invoke(ctx, func(ctx context.Context, settings gax.CallSettings) error {
-		httpReq, err := http.NewRequest("POST", baseUrl.String(), bytes.NewReader(jsonReq))
-		if err != nil {
-			return err
-		}
-		httpReq = httpReq.WithContext(ctx)
-		httpReq.Header = headers
-
-		httpRsp, err := c.httpClient.Do(httpReq)
-		if err != nil {
-			return err
-		}
-		defer httpRsp.Body.Close()
-
-		if err = googleapi.CheckResponse(httpRsp); err != nil {
-			return err
-		}
-
-		buf, err := ioutil.ReadAll(httpRsp.Body)
-		if err != nil {
-			return err
-		}
-
-		if err := unm.Unmarshal(buf, resp); err != nil {
-			return maybeUnknownEnum(err)
-		}
-
-		return nil
-	}, opts...)
-	if e != nil {
-		return nil, e
-	}
-	op := &Operation{
-		&globalOperationsHandle{
-			c:       c.operationClient,
-			proto:   resp,
-			project: req.GetProject(),
-		},
-	}
-	return op, nil
-}
-
 // TestIamPermissions returns permissions that a caller has on the specified resource.
-func (c *snapshotsRESTClient) TestIamPermissions(ctx context.Context, req *computepb.TestIamPermissionsSnapshotRequest, opts ...gax.CallOption) (*computepb.TestPermissionsResponse, error) {
+func (c *machineImagesRESTClient) TestIamPermissions(ctx context.Context, req *computepb.TestIamPermissionsMachineImageRequest, opts ...gax.CallOption) (*computepb.TestPermissionsResponse, error) {
 	m := protojson.MarshalOptions{AllowPartial: true}
 	body := req.GetTestPermissionsRequestResource()
 	jsonReq, err := m.Marshal(body)
@@ -648,7 +586,7 @@ func (c *snapshotsRESTClient) TestIamPermissions(ctx context.Context, req *compu
 	}
 
 	baseUrl, _ := url.Parse(c.endpoint)
-	baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/snapshots/%v/testIamPermissions", req.GetProject(), req.GetResource())
+	baseUrl.Path += fmt.Sprintf("/compute/v1/projects/%v/global/machineImages/%v/testIamPermissions", req.GetProject(), req.GetResource())
 
 	// Build HTTP headers from client and context metadata.
 	headers := buildHeaders(ctx, c.xGoogMetadata, metadata.Pairs("Content-Type", "application/json"))
@@ -689,9 +627,9 @@ func (c *snapshotsRESTClient) TestIamPermissions(ctx context.Context, req *compu
 	return resp, nil
 }
 
-// SnapshotIterator manages a stream of *computepb.Snapshot.
-type SnapshotIterator struct {
-	items    []*computepb.Snapshot
+// MachineImageIterator manages a stream of *computepb.MachineImage.
+type MachineImageIterator struct {
+	items    []*computepb.MachineImage
 	pageInfo *iterator.PageInfo
 	nextFunc func() error
 
@@ -706,18 +644,18 @@ type SnapshotIterator struct {
 	// InternalFetch returns results from a single call to the underlying RPC.
 	// The number of results is no greater than pageSize.
 	// If there are no more results, nextPageToken is empty and err is nil.
-	InternalFetch func(pageSize int, pageToken string) (results []*computepb.Snapshot, nextPageToken string, err error)
+	InternalFetch func(pageSize int, pageToken string) (results []*computepb.MachineImage, nextPageToken string, err error)
 }
 
 // PageInfo supports pagination. See the google.golang.org/api/iterator package for details.
-func (it *SnapshotIterator) PageInfo() *iterator.PageInfo {
+func (it *MachineImageIterator) PageInfo() *iterator.PageInfo {
 	return it.pageInfo
 }
 
 // Next returns the next result. Its second return value is iterator.Done if there are no more
 // results. Once Next returns Done, all subsequent calls will return Done.
-func (it *SnapshotIterator) Next() (*computepb.Snapshot, error) {
-	var item *computepb.Snapshot
+func (it *MachineImageIterator) Next() (*computepb.MachineImage, error) {
+	var item *computepb.MachineImage
 	if err := it.nextFunc(); err != nil {
 		return item, err
 	}
@@ -726,11 +664,11 @@ func (it *SnapshotIterator) Next() (*computepb.Snapshot, error) {
 	return item, nil
 }
 
-func (it *SnapshotIterator) bufLen() int {
+func (it *MachineImageIterator) bufLen() int {
 	return len(it.items)
 }
 
-func (it *SnapshotIterator) takeBuf() interface{} {
+func (it *MachineImageIterator) takeBuf() interface{} {
 	b := it.items
 	it.items = nil
 	return b

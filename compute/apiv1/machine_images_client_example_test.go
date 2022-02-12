@@ -24,9 +24,9 @@ import (
 	computepb "google.golang.org/genproto/googleapis/cloud/compute/v1"
 )
 
-func ExampleNewSnapshotsRESTClient() {
+func ExampleNewMachineImagesRESTClient() {
 	ctx := context.Background()
-	c, err := compute.NewSnapshotsRESTClient(ctx)
+	c, err := compute.NewMachineImagesRESTClient(ctx)
 	if err != nil {
 		// TODO: Handle error.
 	}
@@ -36,17 +36,17 @@ func ExampleNewSnapshotsRESTClient() {
 	_ = c
 }
 
-func ExampleSnapshotsClient_Delete() {
+func ExampleMachineImagesClient_Delete() {
 	ctx := context.Background()
-	c, err := compute.NewSnapshotsRESTClient(ctx)
+	c, err := compute.NewMachineImagesRESTClient(ctx)
 	if err != nil {
 		// TODO: Handle error.
 	}
 	defer c.Close()
 
-	req := &computepb.DeleteSnapshotRequest{
+	req := &computepb.DeleteMachineImageRequest{
 		// TODO: Fill request struct fields.
-		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#DeleteSnapshotRequest.
+		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#DeleteMachineImageRequest.
 	}
 	op, err := c.Delete(ctx, req)
 	if err != nil {
@@ -59,17 +59,17 @@ func ExampleSnapshotsClient_Delete() {
 	}
 }
 
-func ExampleSnapshotsClient_Get() {
+func ExampleMachineImagesClient_Get() {
 	ctx := context.Background()
-	c, err := compute.NewSnapshotsRESTClient(ctx)
+	c, err := compute.NewMachineImagesRESTClient(ctx)
 	if err != nil {
 		// TODO: Handle error.
 	}
 	defer c.Close()
 
-	req := &computepb.GetSnapshotRequest{
+	req := &computepb.GetMachineImageRequest{
 		// TODO: Fill request struct fields.
-		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#GetSnapshotRequest.
+		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#GetMachineImageRequest.
 	}
 	resp, err := c.Get(ctx, req)
 	if err != nil {
@@ -79,17 +79,17 @@ func ExampleSnapshotsClient_Get() {
 	_ = resp
 }
 
-func ExampleSnapshotsClient_GetIamPolicy() {
+func ExampleMachineImagesClient_GetIamPolicy() {
 	ctx := context.Background()
-	c, err := compute.NewSnapshotsRESTClient(ctx)
+	c, err := compute.NewMachineImagesRESTClient(ctx)
 	if err != nil {
 		// TODO: Handle error.
 	}
 	defer c.Close()
 
-	req := &computepb.GetIamPolicySnapshotRequest{
+	req := &computepb.GetIamPolicyMachineImageRequest{
 		// TODO: Fill request struct fields.
-		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#GetIamPolicySnapshotRequest.
+		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#GetIamPolicyMachineImageRequest.
 	}
 	resp, err := c.GetIamPolicy(ctx, req)
 	if err != nil {
@@ -99,17 +99,17 @@ func ExampleSnapshotsClient_GetIamPolicy() {
 	_ = resp
 }
 
-func ExampleSnapshotsClient_Insert() {
+func ExampleMachineImagesClient_Insert() {
 	ctx := context.Background()
-	c, err := compute.NewSnapshotsRESTClient(ctx)
+	c, err := compute.NewMachineImagesRESTClient(ctx)
 	if err != nil {
 		// TODO: Handle error.
 	}
 	defer c.Close()
 
-	req := &computepb.InsertSnapshotRequest{
+	req := &computepb.InsertMachineImageRequest{
 		// TODO: Fill request struct fields.
-		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#InsertSnapshotRequest.
+		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#InsertMachineImageRequest.
 	}
 	op, err := c.Insert(ctx, req)
 	if err != nil {
@@ -122,17 +122,17 @@ func ExampleSnapshotsClient_Insert() {
 	}
 }
 
-func ExampleSnapshotsClient_List() {
+func ExampleMachineImagesClient_List() {
 	ctx := context.Background()
-	c, err := compute.NewSnapshotsRESTClient(ctx)
+	c, err := compute.NewMachineImagesRESTClient(ctx)
 	if err != nil {
 		// TODO: Handle error.
 	}
 	defer c.Close()
 
-	req := &computepb.ListSnapshotsRequest{
+	req := &computepb.ListMachineImagesRequest{
 		// TODO: Fill request struct fields.
-		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#ListSnapshotsRequest.
+		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#ListMachineImagesRequest.
 	}
 	it := c.List(ctx, req)
 	for {
@@ -148,17 +148,17 @@ func ExampleSnapshotsClient_List() {
 	}
 }
 
-func ExampleSnapshotsClient_SetIamPolicy() {
+func ExampleMachineImagesClient_SetIamPolicy() {
 	ctx := context.Background()
-	c, err := compute.NewSnapshotsRESTClient(ctx)
+	c, err := compute.NewMachineImagesRESTClient(ctx)
 	if err != nil {
 		// TODO: Handle error.
 	}
 	defer c.Close()
 
-	req := &computepb.SetIamPolicySnapshotRequest{
+	req := &computepb.SetIamPolicyMachineImageRequest{
 		// TODO: Fill request struct fields.
-		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#SetIamPolicySnapshotRequest.
+		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#SetIamPolicyMachineImageRequest.
 	}
 	resp, err := c.SetIamPolicy(ctx, req)
 	if err != nil {
@@ -168,40 +168,17 @@ func ExampleSnapshotsClient_SetIamPolicy() {
 	_ = resp
 }
 
-func ExampleSnapshotsClient_SetLabels() {
+func ExampleMachineImagesClient_TestIamPermissions() {
 	ctx := context.Background()
-	c, err := compute.NewSnapshotsRESTClient(ctx)
+	c, err := compute.NewMachineImagesRESTClient(ctx)
 	if err != nil {
 		// TODO: Handle error.
 	}
 	defer c.Close()
 
-	req := &computepb.SetLabelsSnapshotRequest{
+	req := &computepb.TestIamPermissionsMachineImageRequest{
 		// TODO: Fill request struct fields.
-		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#SetLabelsSnapshotRequest.
-	}
-	op, err := c.SetLabels(ctx, req)
-	if err != nil {
-		// TODO: Handle error.
-	}
-
-	err = op.Wait(ctx)
-	if err != nil {
-		// TODO: Handle error.
-	}
-}
-
-func ExampleSnapshotsClient_TestIamPermissions() {
-	ctx := context.Background()
-	c, err := compute.NewSnapshotsRESTClient(ctx)
-	if err != nil {
-		// TODO: Handle error.
-	}
-	defer c.Close()
-
-	req := &computepb.TestIamPermissionsSnapshotRequest{
-		// TODO: Fill request struct fields.
-		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#TestIamPermissionsSnapshotRequest.
+		// See https://pkg.go.dev/google.golang.org/genproto/googleapis/cloud/compute/v1#TestIamPermissionsMachineImageRequest.
 	}
 	resp, err := c.TestIamPermissions(ctx, req)
 	if err != nil {
